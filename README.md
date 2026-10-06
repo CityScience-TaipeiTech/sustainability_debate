@@ -26,9 +26,10 @@
 * `main.ipynb`：系統主程式。定義各代理人的系統提示詞（System Prompt）、自訂工具（本地檢索與網路搜尋）以及 LangGraph 的狀態機器路由邏輯。
 * `load.ipynb`：資料前處理與知識庫建置程式。負責讀取台灣氣候與減碳相關的 PDF 文件，使用 `RecursiveCharacterTextSplitter` 進行文本分割，並存入 Chroma 向量資料庫。
 * `MultiAgentTest.ipynb`：多重代理人測試腳本。這是一個簡易的銷售與客服代理人切換範例，用於初步驗證 LangGraph 的路由與交接（Handoff）機制。
+* `taiwan_docs/`：存放供 Agent A 建立知識庫的來源 PDF 文件（例如：《台灣總體減碳行動計畫.pdf》、《深度節能行動方案.pdf》、《空品政策白皮書.pdf》等）。
+* `trump_docs/`：存放供 Agent B 建立知識庫的來源 PDF 文件（例如：`trump_file.pdf` 等）。
 * `taiwan_climate_docs/`：存放 Agent A 專用的 Chroma 本地向量資料庫。
 * `trump_need/`：存放 Agent B 專用的 Chroma 本地向量資料庫。
-* `*.pdf`：各類參考與知識庫來源文件（例如：《台灣總體減碳行動計畫.pdf》、《深度節能行動方案.pdf》、《空品政策白皮書.pdf》等）。
 * `Debate Demo.mov` / `Debate_Demo1.mp4`：系統執行結果的展示影片檔。
 * `langgraph.png`：LangGraph 狀態機器的圖形化架構圖。
 * `.env`：環境變數設定檔（存放 OpenAI 與 Tavily 的 API Keys）。
