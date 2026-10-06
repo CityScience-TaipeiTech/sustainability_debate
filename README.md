@@ -17,19 +17,19 @@
    * **互動規則**：設定在辯論 2 到 3 輪後，主動整理前面討論重點並引導使用者發表看法。必須等使用者多次表達明確立場後，才能總結並結束對話。
 2. **Agent A（賴清德立場）**：
    * **核心立場**：積極推動淨零轉型、發展綠能與數位雙軸轉型、強調供應鏈接軌國際 ESG 標準。
-   * **資料來源**：優先檢索 `taiwan_climate_docs` 向量資料庫（包含台灣官方的環保與減碳政策文件），並輔以網路搜尋。
+   * **資料來源**：優先檢索 `taiwan_RAG` 向量資料庫（包含台灣官方的環保與減碳政策文件），並輔以網路搜尋。
 3. **Agent B（川普立場）**：
    * **核心立場**：反對過度碳稅與激進綠能政策、保護本土產業與勞工、強調經濟發展優先。
-   * **資料來源**：優先檢索 `trump_need` 向量資料庫（包含 `trump_file.pdf` 等相關文件），並輔以網路搜尋。
+   * **資料來源**：優先檢索 `trump_RAG` 向量資料庫（包含 `trump_file.pdf` 等相關文件），並輔以網路搜尋。
 
 ## 四、 檔案與資料夾結構
 * `main.ipynb`：系統主程式。定義各代理人的系統提示詞（System Prompt）、自訂工具（本地檢索與網路搜尋）以及 LangGraph 的狀態機器路由邏輯。
 * `load.ipynb`：資料前處理與知識庫建置程式。負責讀取台灣氣候與減碳相關的 PDF 文件，使用 `RecursiveCharacterTextSplitter` 進行文本分割，並存入 Chroma 向量資料庫。
 * `MultiAgentTest.ipynb`：多重代理人測試腳本。這是一個簡易的銷售與客服代理人切換範例，用於初步驗證 LangGraph 的路由與交接（Handoff）機制。
-* `taiwan_docs/`：存放供 Agent A 建立知識庫的來源 PDF 文件（例如：《台灣總體減碳行動計畫.pdf》、《深度節能行動方案.pdf》、《空品政策白皮書.pdf》等）。
-* `trump_docs/`：存放供 Agent B 建立知識庫的來源 PDF 文件（例如：`trump_file.pdf` 等）。
-* `taiwan_climate_docs/`：存放 Agent A 專用的 Chroma 本地向量資料庫。
-* `trump_need/`：存放 Agent B 專用的 Chroma 本地向量資料庫。
+* `taiwan_docs_file/`：存放供 Agent A 建立知識庫的來源 PDF 文件（例如：《台灣總體減碳行動計畫.pdf》、《深度節能行動方案.pdf》、《空品政策白皮書.pdf》等）。
+* `trump_docs_file/`：存放供 Agent B 建立知識庫的來源 PDF 文件（例如：`trump_file.pdf` 等）。
+* `taiwan_RAG/`：存放 Agent A 專用的 Chroma 本地向量資料庫。
+* `trump_RAG/`：存放 Agent B 專用的 Chroma 本地向量資料庫。
 * `Debate Demo.mov` / `Debate_Demo1.mp4`：系統執行結果的展示影片檔。
 * `langgraph.png`：LangGraph 狀態機器的圖形化架構圖。
 * `.env`：環境變數設定檔（存放 OpenAI 與 Tavily 的 API Keys）。
@@ -41,8 +41,8 @@
    TAVILY_API_KEY=your_tavily_api_key
    ```
 2. **建立專屬知識庫**：
-   * 執行 `load.ipynb` 中的儲存格，系統會自動讀取指定的 PDF 文件並建立 `taiwan_climate_docs` 向量資料庫。
-   * （視專案需求確認 `trump_need` 資料庫已建構完成）。
+   * 執行 `load.ipynb` 中的儲存格，系統會自動讀取指定的 PDF 文件並建立 `taiwan_RAG` 向量資料庫。
+   * （視專案需求確認 `trump_RAG` 資料庫已建構完成）。
 3. **執行主程式進行辯論**：
    * 執行 `main.ipynb`。
    * 系統啟動後，將由主持人起頭建立辯論題目，並交由兩位代理人交替發言。代理人會在發言前自動調用工具搜尋資料。
